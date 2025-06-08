@@ -1,0 +1,29 @@
+{
+  "general": {
+    "messages": {
+      "noItemsFound": "No items found"
+    }
+  },
+  "columns": {
+    "index": "Index",
+    "name": "Name",
+    "title": "Title",
+    "tag": "Tag",
+    "status": "Status",
+    "owner": "Owner",
+    "projectDate": "Project date",
+    "createdAt": "Created at",
+    "phone": "Phone",
+    "email": "Email",
+    "username": "User name",
+    "category": "Category"
+  },
+  "blog": {
+    "status": {
+      "draft": "Draft",
+      "pending": "Pending",
+      "visible": "Visible",
+      "rejected": "Rejected"
+    }
+  }
+}

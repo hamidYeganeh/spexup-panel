@@ -1,0 +1,59 @@
+import { useState } from 'react';
+import Page from 'src/components/Page';
+import { Table } from 'src/components/Table';
+import { BlogListColumns } from 'src/features/columns';
+import { useBlogListQuery } from 'src/services/blog-api';
+import { useCategoryListQuery } from 'src/services/category-api';
+import { NumberParam, StringParam, useQueryParams, withDefault } from 'use-query-params';
+
+export default function BlogListPage() {
+  const [query, setQuery] = useQueryParams({
+    page: withDefault(NumberParam, 1),
+    limit: withDefault(NumberParam, 15),
+    title: withDefault(StringParam, ''),
+  });
+  const { page, limit, title } = query;
+
+  const { data, error, isLoading } = useBlogListQuery({ page, limit, title });
+
+  function onPageChange(e, newPage) {
+    setQuery((q) => ({ ...q, page: newPage + 1 }));
+  }
+  function onRowsPerPageChange(e) {
+    setQuery((q) => ({ ...q, limit: e.target.value, page: 1 }));
+  }
+  function onSearch(newSearch) {
+    setQuery((q) => ({ ...q, title: newSearch, page: 1 }));
+  }
+
+  const paginate = {
+    page,
+    onPageChange,
+    rowsPerPage: limit,
+    onRowsPerPageChange,
+    count: data?.count,
+  };
+
+  const toolbar = {
+    search: {
+      search: title,
+      onSearch,
+    },
+    redirect: {
+      label: 'New Blog',
+      path: '/dashboard/blog/create',
+    },
+  };
+
+  return (
+    <Page>
+      <Table
+        data={data?.data || []}
+        columns={BlogListColumns}
+        paginate={paginate}
+        toolbar={toolbar}
+        isLoading={isLoading}
+      />
+    </Page>
+  );
+}

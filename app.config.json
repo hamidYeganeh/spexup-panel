@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "name": "spexup-content-panel",
+      "script": "npm",
+      "interpreter": "none",
+      "args": "run production"
+    }
+  ]
+}
